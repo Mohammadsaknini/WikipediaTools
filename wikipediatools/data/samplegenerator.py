@@ -1,5 +1,5 @@
-from wikitools.data.features import FeaturesExtractor, FeatureSets
-from wikitools.data.utils import get_page_content
+from wikipediatools.data.features import FeaturesExtractor, FeatureSets
+from wikipediatools.data.utils import get_page_content
 import mwparserfromhell
 from tqdm import tqdm
 import pandas as pd
@@ -11,7 +11,7 @@ class SampleGenerator():
     A class that generates a sample dataset and extracts features from it.
     """
 
-    def __init__(self, grading_dataset :pd.DataFrame, size_per_grading : int, random_state: int = 42, save_raw_data = False) -> None:
+    def __init__(self, grading_dataset :pd.DataFrame, size_per_grading : int, random_state: int = 42, save_raw_data = False, include_c_class=True) -> None:
         """
         A class that generates a sample dataset and extracts features from it.
 
@@ -20,12 +20,15 @@ class SampleGenerator():
             size_per_grading (int): The number of samples to be generated per grading.
             random_state (int, optional): The random state to be used for sampling. Defaults to 42.
             save_raw_data (bool, optional): Whether to save the raw data that contains the page content. Defaults to False.
+            include_c_class (bool, optional): Whether to include C class in the sample dataset. Defaults to True.
         """
         self.df = grading_dataset
         self.random_state = random_state
         self.size_per_grading = size_per_grading
         self.save_raw_data = save_raw_data
-        self.grades = ["Stub","Start","B","A","GA","FA"]
+        self.grades = ["Stub","Start","B","C","A","GA","FA"]
+        if not include_c_class:
+            self.grades.remove("C")
 
     def _generate_sample(self):
         """

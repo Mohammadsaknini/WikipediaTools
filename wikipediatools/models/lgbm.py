@@ -1,8 +1,8 @@
 from sklearn.metrics import accuracy_score, precision_score, recall_score, confusion_matrix
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import KFold
-from wikitools.data.features import FeatureSets
-from wikitools.models.model import BaseModel
+from wikipediatools.data.features import FeatureSets
+from wikipediatools.models.model import BaseModel
 import matplotlib.pyplot as plt
 from pathlib import Path
 import lightgbm as lgbm
@@ -14,6 +14,10 @@ import shap
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
+def warn(*args, **kwargs):
+    pass
+import warnings
+warnings.warn = warn
 
 
 class LightGBM(BaseModel):
@@ -378,7 +382,7 @@ class LightGBM(BaseModel):
         """
         Predict the quality of a Wikipedia article.
         """
-        return self.best_model.predict(self.data[self.features_set].values)[0]
+        return self.best_model.predict(self.data[self.features_set].values, verbose=-1)[0]
     
     def get_params(self):
         """

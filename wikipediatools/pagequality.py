@@ -1,8 +1,8 @@
-from wikitools.data.features import FeaturesExtractor, FeatureSets
-from wikitools.models.dnn import DeepNeuralNetwork
-from wikitools.models.types import ModelType
-from wikitools.models.model import BaseModel
-from wikitools.models.lgbm import LightGBM
+from wikipediatools.data.features import FeaturesExtractor, FeatureSets
+from wikipediatools.models.dnn import DeepNeuralNetwork
+from wikipediatools.models.types import ModelType
+from wikipediatools.models.model import BaseModel
+from wikipediatools.models.lgbm import LightGBM
 import mwparserfromhell as mwp
 import pandas as pd
 import requests
@@ -13,7 +13,7 @@ class QualityPredictor:
     A class that predicts the quality of a Wikipedia page.
     """
 
-    def __init__(self, features_set: FeatureSets = FeatureSets.TEXT_STATISTICS,
+    def __init__(self, features_set: FeatureSets = FeatureSets.ALL,
                  model_type: ModelType = ModelType.LightGBM):
         """
         Initialize the Wikipredictor.

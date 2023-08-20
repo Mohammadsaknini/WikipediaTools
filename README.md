@@ -9,19 +9,26 @@ For better results based on mediawiki please check out [articlequality](https://
 ## Installation
 clone the repository and install the requirements
 ```bash
-git clone https://github.com/MohammadSakhnini/Wikipedia-Quality-Assessment.git
-cd Wikipedia-Quality-Assessment
+git clone https://github.com/MohammadSakhnini/WikipediaTools.git
+cd WikipediaTools
 pip install -r requirements.txt
 ```
 
-## Usage
+## Predicting the quality of a Wikipedia article
 ```python
-from wikipredictor import Wikipredictor
+from wikipediatools.pagequality import QualityPredictor, FeatureSets, ModelType
 
-predictor = Wikipredictor()
+# select a model and a feature set, best model is chosen by default
+predictor = QualityPredictor(FeatureSets.TEXT_STATISTICS, ModelType.LightGBM)
+
+# predict using the title, which will use the the latest revision.
 print(predictor.predict_quality("SpongeBob SquarePants"))
-
 >>> High
+
+# or predict using the revision ID.
+print(predictor.predict_quality(1171275655))
+>>> High
+
 ```
 
 To select a model and a feature set, use the following:
@@ -33,6 +40,22 @@ print(predictor.predict_quality("SpongeBob SquarePants"))
 >>> High
 ```
 
+# Generate new feature set
+```python
+from wikipediatools.data import SampleGenerator, FeatureSets
+from zipfile import ZipFile
+import pandas as pd
+
+with ZipFile('dataset.zip', 'r') as file:
+    df = pd.read_csv(file.open("raw/dataset.csv"))
+
+# Generate an evenly distributed dataset that contains 50 articles per grading
+generator = SampleGenerator(grading_dataset=df, size_per_grading=50, random_state=99)
+generator.get_features("path/to/save", FeatureSets.TEXT_STATISTICS)
+# for multiple feature sets
+# generator.get_features("path/to/save", [FeatureSets.TEXT_STATISTICS, FeatureSets.STRUCTURE_FEATURES])
+# or simply use FeaturesSet.ALL
+```
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 

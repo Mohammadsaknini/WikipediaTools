@@ -2,7 +2,7 @@ from keras.metrics import Precision, Recall, TrueNegatives, FalsePositives
 from sklearn.model_selection import train_test_split
 from keras_tuner import BayesianOptimization
 from sklearn.model_selection import KFold
-from wikitools.data.features import FeatureSets
+from wikipediatools.data.features import FeatureSets
 from keras_tuner import HyperParameters
 from keras.layers import Dense, Dropout
 from matplotlib import pyplot as plt

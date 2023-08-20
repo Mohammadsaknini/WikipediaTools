@@ -1,3 +1,3 @@
-from pagequality import QualityPredictor
+from pagequality import QualityPredictor, FeatureSets, ModelType
 
-__all__ = ["SampleGenerator"]
+__all__ = ["QualityPredictor","FeatureSets","ModelType"]
