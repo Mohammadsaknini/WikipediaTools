@@ -18,26 +18,23 @@ pip install -r requirements.txt
 ```python
 from wikipediatools.pagequality import QualityPredictor, FeatureSets, ModelType
 
-# select a model and a feature set, best model is chosen by default
-predictor = QualityPredictor(FeatureSets.TEXT_STATISTICS, ModelType.LightGBM)
+# Create the best model
+predictor = QualityPredictor()
 
-# predict using the title, which will use the the latest revision.
+# Select a feature set and a model
+# predictor = Wikipredictor(FeaturesSet.STRUCTURE_FEATURES, ModelType.DeepNeuralNetwork)
+
+# Or just the feature set, which will automatically select the best model
+# predictor = Wikipredictor(FeaturesSet.READABILITY_SCORES)
+
+# Predict using the title, which will use the the latest revision.
 print(predictor.predict_quality("SpongeBob SquarePants"))
 >>> High
 
-# or predict using the revision ID.
+# Or predict using the revision ID.
 print(predictor.predict_quality(1171275655))
 >>> High
 
-```
-
-To select a model and a feature set, use the following:
-```python
-from wikipredictor import Wikipredictor, FeaturesSet, ModelType
-predictor = Wikipredictor(FeaturesSet.STRUCTURE_FEATURES, ModelType.DeepNeuralNetwork)
-print(predictor.predict_quality("SpongeBob SquarePants"))
-
->>> High
 ```
 
 # Generate new feature set
